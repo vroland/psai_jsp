@@ -29,6 +29,11 @@ def show_schedule(schedule):
     for m_ops in schedule:
         m_ops.sort(key=lambda o: o.start)
 
+    # clear axis
+    plt.cla()
+    # clear figure
+    plt.clf()
+
     max_job = max( [ max([op.job_id for op in slot]) for slot in schedule] )
     for slot in zip(*schedule):
         m_ops = list(slot)
@@ -41,10 +46,11 @@ def show_schedule(schedule):
     plt.draw()
     plt.pause(0.001)
 
+
+data = b""
 while True:
     lines = []
 
-    data = b""
     while True:
 
         plt.pause(0.001)
@@ -56,6 +62,7 @@ while True:
             nlindex = data.index(b"\n")
             line = data[:nlindex].decode("utf-8")
             data = data[nlindex + 1:]
+            print (line)
         else:
             line = ""
 
