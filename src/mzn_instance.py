@@ -29,8 +29,21 @@ def mzn_instance(instance):
     return ";\n".join(facts)
 
 if __name__ == "__main__":
-    instances = load_instances("jobshop1.txt")
-    instance = instances[-6]
+    import argparse
+
+    parser = argparse.ArgumentParser(description='generate a minizinc instance')
+    parser.add_argument('infile', help='a file to search for instances')
+    parser.add_argument('instance', help='name of the instance to use')
+
+    args = parser.parse_args()
+    instances = load_instances(args.infile)
+    instance_dict = {instance.name : instance for instance in instances}
+    try:
+        instance = instance_dict[args.instance]
+    except KeyError:
+        print ("no such instance", args.instance, file=sys.stderr)
+        sys.exit(1)
+
     print ("using instance", instance.name, instance.description, file=sys.stderr)
     print (mzn_instance(instance))
 
