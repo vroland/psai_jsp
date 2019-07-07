@@ -85,6 +85,11 @@ def lines_from_schedule(schedule):
     ops = max([max(map(lambda op: op.op_id, m)) for m in schedule]) + 1
 
     print("schedule size:", jobs, ops)
+    op_jobs = defaultdict(list)
     for machine in schedule:
-        lines.append([f"{op.start},{op.end},{op.machine}" for op in machine])
+        for op in machine:
+            op_jobs[op.job_id].append(op)
+
+    for job in sorted(op_jobs.keys()):
+        lines.append([f"{op.start},{op.end},{op.machine}" for op in op_jobs[job]])
     return lines
