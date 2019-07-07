@@ -1,29 +1,16 @@
 #!/bin/python3
 
 import sys
-from collections import namedtuple,defaultdict
 
-Operation = namedtuple("Operation", ["job_id", "op_id", "machine", "start", "end"])
 
 import matplotlib.pyplot as plt
 from matplotlib.colors import hsv_to_rgb
 import os
 import select
+from mzn_instance import schedule_from_lines, Operation
 
 plt.ion()
 plt.show()
-
-def schedule_from_lines(lines):
-    """allocate operations to machines and parse input"""
-
-    schedule = defaultdict(list)
-    for job, line in enumerate(lines):
-        for op, op_string in enumerate(line):
-            start, end, machine = map(int, op_string.split(","))
-            op_ex = Operation(job_id=job, op_id=op, start=start, end=end, machine=machine)
-            schedule[machine].append(op_ex)
-
-    return [schedule[k] for k in sorted(schedule.keys())]
 
 def show_schedule(schedule):
     for m_ops in schedule:
@@ -63,13 +50,13 @@ while True:
             line = data[:nlindex].decode("utf-8")
             data = data[nlindex + 1:]
             print (line)
+            sys.stdout.flush()
         else:
             line = ""
 
         if line.startswith("m:"):
             lines.append(line[2:].split())
         elif line.startswith("---"):
-            print ("new schedule!")
             schedule = schedule_from_lines(lines)
             show_schedule(schedule)
             break
