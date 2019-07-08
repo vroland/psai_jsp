@@ -14,11 +14,11 @@ solve_%: work/instance_%_$(NAME_UPPER)_$(NAME_BOUNDS).mzn phony_explicit
 
 # solve and visualize the instance called $*
 vis_%: phony_explicit
-	$(MAKE) solve_$* | src/vis.py 2>/dev/null
+	$(MAKE) solve_$* | python3 src/vis.py 2>/dev/null
 
 # solve and visualize the instance called $* by iterative scaling
 iterate_vis_%: phony_explicit
-	python3 src/iterate.py $* | src/vis.py 2>/dev/null
+	python3 src/iterate.py $* | python3 src/vis.py 2>/dev/null
 
 
 
