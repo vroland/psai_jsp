@@ -35,6 +35,7 @@ Examples:
 - `make solve_ft06`
 - `make vis_la02`
 - `make vis_swv17`
+- `make vis_tai_100_20` (Thanks to the converted instance by Christian Lewe )
 - others in `show.sh`
 
 Output Format

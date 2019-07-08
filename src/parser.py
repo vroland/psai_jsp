@@ -21,8 +21,8 @@ def load_instances(path):
     with open(path, "r") as f:
         content = f.read()
 
-    instance_start = re.compile(r"^\s+instance\s+([\w]*)\s*$", re.MULTILINE)
-    instance_block = re.compile(r"^\s[\+]{5,}(.*?)^\s[\+]{5,}", re.MULTILINE | re.DOTALL)
+    instance_start = re.compile(r"^\s*instance\s+([\w]*)\s*$", re.MULTILINE)
+    instance_block = re.compile(r"^\s?[\+]{5,}(.*?)^\s?[\+]{5,}", re.MULTILINE | re.DOTALL)
 
     instances = []
 

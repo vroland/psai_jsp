@@ -28,9 +28,13 @@ work/instance_%_$(NAME_UPPER)_$(NAME_BOUNDS).mzn: data/jobshop1.txt phony_explic
 	python3 src/mzn_instance.py $< $* $(USE_SCALE) $(USE_UPPER) $(USE_BOUNDS) > $@
 
 # download the instance file
+# Thanks to Christian Lewe for providing the converted Taillard 100x20 instance!
 data/jobshop1.txt:
 	mkdir -p data
 	curl http://people.brunel.ac.uk/~mastjjb/jeb/orlib/files/jobshop1.txt > $@
+	echo "" >> $@
+	curl https://lewelup.me/public/tai_100_20.merged >> $@
+	echo "++++++++++++++" >> $@
 
 # A phony prerequisite to avoid to type every whole target name.
 .PHONY: phony_explicit
