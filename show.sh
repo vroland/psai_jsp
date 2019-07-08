@@ -1,6 +1,10 @@
 #!/bin/bash
 # This presentation needs `bat`, a program for fancy source file output.
 # If you don't have bat, you can replace it with any pager (like `less`).
+pager=$(which bat || which less)
+if which bat 2> /dev/null; then
+    pager="$pager -l Pascal --paging=always"
+fi
 
 trap 'echo "Anyway, lets continue..."' INT
 
@@ -12,12 +16,12 @@ clear
 read -p "One of our problem instances looks like this:"
 
 make work/instance_la02_lower_none.mzn
-bat work/instance_la02_lower_none.mzn -l Pascal
+$pager work/instance_la02_lower_none.mzn
 
 clear
 read -p "And our problem instance like this:"
 
-bat src/encoding.mzn -l Pascal
+$pager src/encoding.mzn
 
 clear
 read -p "Now let's see it in action:"
